@@ -213,6 +213,7 @@ list2
       (car list1)
       (last-pair (cdr list1))))
 
+;Ex 2.18
 (define (reverse list1)
   (if (null? (cdr list1))
       list1
@@ -259,3 +260,53 @@ nil
 
 (define (square-list2 items)
 (map square items))
+
+(define (square-iter items)
+  (define (iter things answer)
+    (if (null? things)
+        answer
+        (iter (cdr things)
+              (cons answer (square (car things))
+                    ))))
+  (iter items nil))
+
+
+;Ex 2.23
+
+(define (for-each function data)
+  (map function data)
+  true ) ; returns true
+
+;test
+(for-each (lambda (x)
+            (newline)
+            (display x))
+          (list 1 2 3))
+
+;Ex 2.24
+(list 1 (list 2 (list 3 4)))
+;tree drawing irl
+
+;Ex 2.25
+(cdaddr (list 1 3 (list 5 7) 9)) ;cadaddr
+(caar (list (list 7)))
+(cadadr (list 1 (list 2 (list 3( list 4(list 5 (list 6 7))))))) ;cddadadadadr
+
+;Ex 2.26
+(define x (list 1 2 3))
+(define y (list 4 5 6))
+(append x y) ; (1 2 3 4 5 6)
+(cons x y) ; ((1 2 3) 4 5 6)
+(list x y) ; ((1 2 3) (4 5 6))
+
+;Ex 2.27
+(define (deep-reverse lst)
+  (if (list? lst)
+      (reverse (map deep-reverse lst))
+      lst))
+
+;test
+(define test-list (list 1 (list 2 3) 4 (list 5 6)))
+(list? test-list)
+(deep-reverse test-list)
+
